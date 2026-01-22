@@ -12,11 +12,21 @@ ls.add_snippets(cpp, {
             dscr = "Iterates over n",
         }, {
             t({"for(int i = 0; i < n; i++){", 
-            "    "}),
+            "\t"}),
             i(1),
             t({"",
             "}"})
         }),
+        s({
+            trig = "comp",
+            namr = "Comparator lambda function",
+            dscr = "For sorting stuff",
+        }, {
+            t({"auto cmp = [&](pair<int,int> const& a, pair<int,int> const& b) {",
+            "\treturn a.second < b.second;",
+            "};"
+            })
+          }),
         s({
             trig = "vi",
             namr = "vector<int>",
@@ -33,6 +43,19 @@ ls.add_snippets(cpp, {
           t("vector<vector<int>> mat(n, vector<int>(m,0));"),
           i(1)
         }),
+        s({
+          trig = "debug_vec",
+          namr = "template for debugging a vector or anything reasonably iterable",
+        },
+        {
+          t({"template<typename Ostream, typename Cont>",
+"enable_if_t<is_same_v<Ostream,ostream>, Ostream&> operator<<(Ostream& os, const Cont& v){",
+    '\tos<<"[";',
+    '\tfor(auto& x:v){os<<x<<", ";}',
+    '\treturn os<<"]";',
+        "}",
+        }),
+      }),
         s({
             trig = "combo",
             namr = "combinatorics namespace",
