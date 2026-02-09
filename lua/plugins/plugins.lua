@@ -94,15 +94,6 @@ return {
     -- mode is `n` by default. For more advanced options, check the section on key mappings
     keys = { "<C-a>", { "<C-x>", mode = "n" } },
   },
-  {
-    "nvzone/typr",
-    dependencies = "nvzone/volt",
-    opts = {},
-    cmd = { "Typr", "TyprStats" },
-	},
-{ "nvzone/volt" , lazy = true },
-{ "nvzone/menu" , lazy = true },
-
 {
   "HakonHarnes/img-clip.nvim",
   event = "VeryLazy",

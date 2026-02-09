@@ -86,6 +86,11 @@ cmp.setup.cmdline(':', {
 })
 
 -- VimTeX
+
+-- TODO: figure out how to make tectonic work nice, probably need to make it so tectonic doesnt use _preamble / _postamble
+-- might be fine to also uninstall vimtex for this
+-- vim.g.vimtex_compiler_method = 'tectonic -X watch'
+
 vim.g.vimtex_view_method = "skim"
 vim.cmd('filetype plugin indent on')
 
