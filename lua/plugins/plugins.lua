@@ -68,7 +68,7 @@ return {
         "$dir/$fileNameWithoutExt"
       },
       -- should default to brew installation of g++ on macos, otherwise, g++
-     cpp = {
+      cpp = {
       "cd $dir &&",
       "[[ $(uname) == 'Darwin' ]] && COMPILER=g++-15 || COMPILER=g++ &&",
       "$COMPILER -std=c++20 $fileName -o $fileNameWithoutExt &&",
@@ -104,6 +104,14 @@ return {
     -- Keybinding to paste image from clipboard
     { "<leader>p", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
   },
+},
+{
+  "karb94/neoscroll.nvim",
+  opts = {},
+},
+{
+  "sphamba/smear-cursor.nvim",
+  opts = {},
 }
 
 }
