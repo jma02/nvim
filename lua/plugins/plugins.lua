@@ -49,10 +49,11 @@ return {
   { 
     "nvim-lualine/lualine.nvim",
     opts = {
-      icons_enabled = true,
       theme = "ayu_mirage",
     }
   },
+
+
 
   -- you can use the VeryLazy event for things that can
   -- load later and are not important for the initial UI
@@ -111,6 +112,10 @@ return {
 },
 {
   "sphamba/smear-cursor.nvim",
+  opts = {},
+},
+{
+  "jma02/tectonic.nvim",
   opts = {},
 }
 

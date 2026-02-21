@@ -7,7 +7,7 @@ local r = require("luasnip.extras").rep
 ls.add_snippets(cpp, {
   cpp = {
         s({
-            trig = "for",
+            trig = "FOR",
             namr = "For loop (competitive programming)",
             dscr = "Iterates over n",
         }, {
@@ -36,11 +36,31 @@ ls.add_snippets(cpp, {
             i(1)
         }),
         s({
+            trig = "vpi",
+            namr = "vector<pair<int,int>>",
+            dscr = "vector<pair<int,int>>",
+        }, {
+            t("vector<pair<int,int>> "),
+            i(1)
+        }),
+
+        s({
           trig = "mat",
           namr = "vector<vector<int>>",
         },
         {
           t("vector<vector<int>> mat(n, vector<int>(m,0));"),
+          i(1)
+        }),
+        s({
+          trig = "usaco_inp",
+          namr = "USACO input temp (for old problems)",
+          dscr = "Setup file i/o"
+        },
+        {
+          t({"freopen(\"swap.in\", \"r\", stdin);",
+             "//the following line creates/overwrites the output file",
+             "freopen(\"swap.out\", \"w\", stdout);"}),
           i(1)
         }),
         s({

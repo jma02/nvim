@@ -6,27 +6,30 @@ require("mason").setup()
 
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
--- LSP Installer
-local lspconfig = require('lspconfig')
-local root_pattern = require('lspconfig/util').root_pattern
-lspconfig.clangd.setup{
-    cmd = { 'clangd' },
-    filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
-    single_file_support = true,
-    root_dir = root_pattern('compile_flags.txt'),
+-- LSP
+vim.lsp.config.clangd = {
+  cmd = { 'clangd' },
+  filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda', 'proto' },
+  single_file_support = true,
+  root_markers = { 'compile_flags.txt' },
 }
 
-lspconfig.pylsp.setup{
+vim.lsp.config.pylsp = {
   settings = {
     pylsp = {
       plugins = {
         pycodestyle = {
-          ignore = {'W391'},
-        }
-      }
-    }
-  }
+          ignore = { 'W391' },
+        },
+      },
+    },
+  },
 }
+
+vim.lsp.config.lua_ls = {}
+
+vim.lsp.enable({ 'clangd', 'pylsp', 'lua_ls' })
+
 -- empty setup using defaults
 require("nvim-tree").setup()
 
@@ -126,7 +129,7 @@ vim.opt.spell = false
 
 -- Set spelllang for .tex and .md files
 vim.api.nvim_exec([[
-  autocmd FileType tex,md setlocal spell spelllang=nl,en_gb
+  autocmd FileType tex,md setlocal spell spelllang=en_gb
 ]], false)
 
 -- Map <C-l> to clear and reapply spelling
@@ -136,7 +139,38 @@ vim.api.nvim_set_keymap('i', '<C-l>', '<c-g>u<Esc>[s1z=`]a<c-g>u', { noremap = t
 vim.cmd([[
   autocmd BufNewFile *.cpp 0r ~/.config/nvim/template.cpp
   autocmd BufNewFile *.tex 0r ~/.config/nvim/template.tex
-  autocmd BufNewFile *.tex call system('cp ~/.config/nvim/tex/jma.sty .') 
 ]])
+
+-- When tectonic.nvim activates, copy jma.sty and ensure _preamble includes it
+vim.api.nvim_create_autocmd("User", {
+  pattern = "TectonicActivated",
+  callback = function()
+    local root = require("tectonic").state.root_dir
+    if not root then return end
+
+    local sty_src = vim.fn.expand("~/.config/nvim/tex/jma.sty")
+    local sty_dst = root .. "/src/jma.sty"
+    if vim.fn.filereadable(sty_dst) == 0 then
+      vim.fn.system({ "cp", sty_src, sty_dst })
+    end
+
+    local preamble = root .. "/src/_preamble.tex"
+    if vim.fn.filereadable(preamble) == 1 then
+      local content = vim.fn.readfile(preamble)
+      local insert_at = nil
+      for i, line in ipairs(content) do
+        if line:match("\\usepackage{jma}") then return end
+        if line:match("\\documentclass") then insert_at = i + 1 end
+      end
+      if insert_at then
+        table.insert(content, insert_at, "\\usepackage{jma}")
+      else
+        table.insert(content, "\\usepackage{jma}")
+      end
+      vim.fn.writefile(content, preamble)
+    end
+  end,
+})
+
 
 
