@@ -117,6 +117,13 @@ return {
 {
   "jma02/tectonic.nvim",
   opts = {},
+},
+{
+  'numToStr/Comment.nvim',
+  opts = {
+      -- add any options here
+  }
 }
+
 
 }
