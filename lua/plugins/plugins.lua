@@ -52,13 +52,12 @@ return {
       theme = "ayu_mirage",
     }
   },
-
-
-
   -- you can use the VeryLazy event for things that can
   -- load later and are not important for the initial UI
   { "stevearc/dressing.nvim", event = "VeryLazy" },
-  { "lervag/vimtex" },
+  --
+  -- settings are still in init.lua
+  -- { "lervag/vimtex" },
   { "CRAG666/code_runner.nvim",
   opts = {
     filetype = {
@@ -106,10 +105,11 @@ return {
     { "<leader>p", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
   },
 },
-{
-  "karb94/neoscroll.nvim",
-  opts = {},
-},
+-- i can't tell the difference between it being on or off.
+-- {
+--   "karb94/neoscroll.nvim",
+--   opts = {},
+-- },
 {
   "sphamba/smear-cursor.nvim",
   opts = {},
